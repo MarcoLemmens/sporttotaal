@@ -51,7 +51,7 @@ def processRequest(req):
         }
     if req.get("result").get("action") == "context-player-salary":
 
-        playerName = Stan Zeetsen
+        playerName = "Stan Zeetsen"
 
         playerName = req.get("result").get("parameters").get("playerName")
 
