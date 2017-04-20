@@ -50,7 +50,12 @@ def processRequest(req):
             "source": "apiai-weather-webhook-sample"
         }
     if req.get("result").get("action") == "context-player-salary":
-        yql_url = "http://marcolemmens.com/ziggo/api.php?query=playerInfo"
+
+        playerName = Stan Zeetsen
+        if req.get("result").get("parameters").get("playerName") is not None:
+            playerName = req.get("result").get("parameters").get("playerName")
+
+        yql_url = "http://marcolemmens.com/ziggo/api.php?query=playerInfo&playerName=" + playerName
         result = urlopen(yql_url).read()
         data = json.loads(result)
         salary = data.get('salary')
