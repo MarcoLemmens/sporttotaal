@@ -36,8 +36,8 @@ def webhook():
 
 
 def processRequest(req):
-    if req.get("result").get("action") == "yahooWeatherForecast":
-        
+    if req.get("result").get("action") != "yahooWeatherForecast":
+        return {}
     baseurl = "https://query.yahooapis.com/v1/public/yql?"
     yql_query = makeYqlQuery(req)
     if yql_query is None:
@@ -48,20 +48,6 @@ def processRequest(req):
     res = makeWebhookResult(data)
     return res
 
-    else if req.get("result").get("action") == "context-player":
-return {
-        "speech": "That would be Eden Hazard",
-        "displayText": "Eden Hazard",
-        # "data": data,
-        # "contextOut": [],
-        "source": "apiai-weather-webhook-sample"
-    }
- 
-
-
-
-    else:
-    return {}
 
 def makeYqlQuery(req):
     result = req.get("result")
@@ -98,8 +84,7 @@ def makeWebhookResult(data):
 
     # print(json.dumps(item, indent=4))
 
-    speech = "Today in " + location.get('city') + ": " + condition.get('text') + \
-             ", the temperature is " + condition.get('temp') + " " + units.get('temperature')
+    speech = "That would be Eden Hazard"
 
     print("Response:")
     print(speech)
