@@ -36,6 +36,7 @@ def webhook():
 
 
 def processRequest(req):
+
     if req.get("result").get("action") == "context-player":
         yql_url = "http://marcolemmens.com/ziggo/api.php?query=playerInfo"
         result = urlopen(yql_url).read()
@@ -51,7 +52,7 @@ def processRequest(req):
         }
     if req.get("result").get("action") == "context-player-salary":
         playerName = req.get("result").get("contexts")[0].get("parameters").get("player-name")
-        yql_url = "http://marcolemmens.com/ziggo/api.php?query=playerInfo&playerName="
+        yql_url = "http://marcolemmens.com/ziggo/api.php?query=playerInfo&playerName=" + playerName
         result = urlopen(yql_url).read()
         data = json.loads(result)
         salary = data.get('salary')
@@ -65,7 +66,7 @@ def processRequest(req):
         }
     if req.get("result").get("action") == "context-player-length":
         playerName = req.get("result").get("contexts")[0].get("parameters").get("player-name")
-        yql_url = "http://marcolemmens.com/ziggo/api.php?query=playerInfo&playerName="
+        yql_url = "http://marcolemmens.com/ziggo/api.php?query=playerInfo&playerName=" + playerName
         result = urlopen(yql_url).read()
         data = json.loads(result)
         length = data.get('length')
