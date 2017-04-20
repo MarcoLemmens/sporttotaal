@@ -37,17 +37,27 @@ def webhook():
 
 def processRequest(req):
     if req.get("result").get("action") == "context-player":
-        speech = "That would be Eden Hazard"
-
-        yql_url = "http://marcolemmens.com/ziggo/api.php"
+        yql_url = "http://marcolemmens.com/ziggo/api.php?query=playerInfo"
         result = urlopen(yql_url).read()
         data = json.loads(result)
-
         playerName = data.get('playerName')
 
         return {
             "speech": playerName,
             "displayText": playerName,
+            # "data": data,
+            # "contextOut": [],
+            "source": "apiai-weather-webhook-sample"
+        }
+    if req.get("result").get("action") == "context-player-salary":
+        yql_url = "http://marcolemmens.com/ziggo/api.php?query=playerInfo"
+        result = urlopen(yql_url).read()
+        data = json.loads(result)
+        salary = data.get('salary')
+
+        return {
+            "speech": salary,
+            "displayText": salary,
             # "data": data,
             # "contextOut": [],
             "source": "apiai-weather-webhook-sample"
