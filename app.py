@@ -71,7 +71,7 @@ def processRequest(req):
         length = data.get('length')
 
         return {
-            "speech": playerName + "is " + length + "cm tall",
+            "speech": playerName + " is " + length + "cm tall",
             "displayText": playerName + " is " + length + "cm tall",
             "data": playerName,
             "contextOut": [{"name":"context-player", "lifespan":1, "parameters":{"player-name":data.get('playerName')}}],
