@@ -38,9 +38,16 @@ def webhook():
 def processRequest(req):
     if req.get("result").get("action") == "context-player":
         speech = "That would be Eden Hazard"
+
+        yql_url = "http://marcolemmens.com/ziggo/api.php"
+        result = urlopen(yql_url).read()
+        data = json.loads(result)
+
+        playerName = data.get('playerName')
+
         return {
-            "speech": speech,
-            "displayText": speech,
+            "speech": playerName,
+            "displayText": playerName,
             # "data": data,
             # "contextOut": [],
             "source": "apiai-weather-webhook-sample"
