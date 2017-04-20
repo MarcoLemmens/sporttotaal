@@ -51,11 +51,9 @@ def processRequest(req):
         }
     if req.get("result").get("action") == "context-player-salary":
 
-        playerName = "Stan Zeetsen"
+        playerName = req.get("result").get("contexts")[0].get("parameters").get("player-name")
 
-        playerName = req.get("result").get("parameters").get("playerName")
-
-        yql_url = "http://marcolemmens.com/ziggo/api.php?query=playerInfo&playerName=" + playerName
+        yql_url = "http://marcolemmens.com/ziggo/api.php?query=playerInfo&playerName="
         result = urlopen(yql_url).read()
         data = json.loads(result)
         salary = data.get('salary')
@@ -63,7 +61,7 @@ def processRequest(req):
         return {
             "speech": salary,
             "displayText": salary,
-            # "data": data,
+            "data": playerName,
             "contextOut": [{"name":"context-player", "lifespan":1, "parameters":{"name":data.get('playerName')}}],
             "source": "apiai-weather-webhook-sample"
         }
