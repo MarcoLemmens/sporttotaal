@@ -44,17 +44,11 @@ def processRequest(req):
         playerName = data.get('playerName')
 
         return {
-          "messages": [
-            {
-            "speech": "That's " + playerName + "on the ball",
-            "displayText": "That's " + playerName + "on the ball",
+            "speech": playerName,
+            "displayText": playerName,
+            # "data": data,
             "contextOut": [{"name":"context-player", "lifespan":1, "parameters":{"player-name":data.get('playerName')}}],
-            },
-            {
-            "speech": "That would be "+playerName,
-            "contextOut": [{"name":"context-player", "lifespan":1, "parameters":{"player-name":data.get('playerName')}}],
-            }
-          ]
+            "source": "apiai-weather-webhook-sample"
         }
     if req.get("result").get("action") == "context-player-salary":
         playerName = req.get("result").get("contexts")[0].get("parameters").get("player-name")
@@ -64,20 +58,11 @@ def processRequest(req):
         salary = data.get('salary')
 
         return {
-            "messages":[
-                {
-                    "speech": data.get('playerName') + "'s salary is "+ salary ,
-                    "displayText": data.get('playerName') + "'s salary is "+ salary ,
-                    "data": playerName,
-                    "contextOut": [{"name":"context-player", "lifespan":1, "parameters":{"player-name":data.get('playerName')}}],
-                },
-                {
-                    "speech": data.get('playerName') + "makes "+ salary + "a year",
-                    "displayText": data.get('playerName') + "makes "+ salary + "a year",
-                    "data": playerName,
-                    "contextOut": [{"name":"context-player", "lifespan":1, "parameters":{"player-name":data.get('playerName')}}],
-                }
-            ]
+            "speech": salary,
+            "displayText": salary,
+            "data": playerName,
+            "contextOut": [{"name":"context-player", "lifespan":1, "parameters":{"player-name":data.get('playerName')}}],
+            "source": "apiai-weather-webhook-sample"
         }
     if req.get("result").get("action") == "context-player-length":
         playerName = req.get("result").get("contexts")[0].get("parameters").get("player-name")
