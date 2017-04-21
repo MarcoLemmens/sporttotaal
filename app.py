@@ -45,7 +45,6 @@ def processRequest(req):
 
         return {
             "speech": output,
-            "displayText": output,
             # "data": data,
             "contextOut": [{"name":"context-player", "lifespan":1, "parameters":{"player-name":data.get('playerName')}}],
             "source": "apiai-weather-webhook-sample"
@@ -59,7 +58,6 @@ def processRequest(req):
 
         return {
             "speech": output,
-            "displayText": output,
             "data": playerName,
             "contextOut": [{"name":"context-player", "lifespan":1, "parameters":{"player-name":data.get('playerName')}}],
             "source": "apiai-weather-webhook-sample"
@@ -73,7 +71,6 @@ def processRequest(req):
 
         return {
             "speech": output,
-            "displayText": output,
             "data": playerName,
             "contextOut": [{"name":"context-player", "lifespan":1, "parameters":{"player-name":data.get('playerName')}}],
             "source": "apiai-weather-webhook-sample"
