@@ -43,10 +43,13 @@ def processRequest(req):
         data = json.loads(result)
         output = data.get('output')
 
+        playerId = data.get('playerInfo').get("id")
+        playerName = data.get('playerInfo').get("playerName")
+
         return {
             "speech": output,
             # "data": data,
-            "contextOut": [{"name":"context-player", "lifespan":1, "parameters":{"player-id":data.get('playerInfo').get("id")}}],
+            "contextOut": [{"name":"context-player", "lifespan":1, "parameters":{"player-id": playerId, "player-name: playerName"}}],
             "source": "apiai-weather-webhook-sample"
         }
     if req.get("result").get("action") == "context-player-salary":
@@ -57,10 +60,14 @@ def processRequest(req):
         data = json.loads(result)
         output = data.get('output')
 
+        playerId = data.get('playerInfo').get("id")
+        playerName = data.get('playerInfo').get("playerName")
+
+
         return {
             "speech": output,
             "data": playerName,
-            "contextOut": [{"name":"context-player", "lifespan":1, "parameters":{"player-id":data.get('playerInfo').get("id")}}],
+            "contextOut": [{"name":"context-player", "lifespan":1, "parameters":{"player-id": playerId, "player-name: playerName"}}],
             "source": "apiai-weather-webhook-sample"
         }
     if req.get("result").get("action") == "context-player-length":
