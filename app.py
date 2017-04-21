@@ -59,7 +59,7 @@ def processRequest(req):
         return {
             "speech": output,
             "data": playerName,
-            "contextOut": [{"name":"context-player", "lifespan":1, "parameters":{"player-name":data.get('playerName')}}],
+            "contextOut": [{"name":"context-player", "lifespan":1, "parameters":{"player-name": playerName}}],
             "source": "apiai-weather-webhook-sample"
         }
     if req.get("result").get("action") == "context-player-length":
@@ -72,7 +72,7 @@ def processRequest(req):
         return {
             "speech": output,
             "data": playerName,
-            "contextOut": [{"name":"context-player", "lifespan":1, "parameters":{"player-name":data.get('playerName')}}],
+            "contextOut": [{"name":"context-player", "lifespan":1, "parameters":{"player-name":playerName}}],
             "source": "apiai-weather-webhook-sample"
         }
     else:
