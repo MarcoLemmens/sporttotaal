@@ -85,8 +85,8 @@ def processRequest(req):
 
     if req.get("result").get("action") == "specific-player":
 
-        playerName = req.get('result').get("parameters").get("soccerPlayers")
-        playerId = req.get("result").get("contexts")[0].get("parameters").get("player-id")
+        playerName = "Memphis Depay"
+        playerId = 2
 
 
         yql_url = "http://marcolemmens.com/ziggo/api.php?query=specificPlayerInfo&playerId=" + playerId+"&playerName=" + playerName"

@@ -19,7 +19,7 @@ $playerName = "Eden Hazard";
 $query = 'none';
 $playerId = 1;
 
-$playerArray = array('id' => 999, 'playerName' => 'marco lemmens', 'currentTeam' => 'vv maarheeze', 'salary' => '10.5 euro', 'length' => '15cm');
+$playerArray = array('id' => 2, 'playerName' => 'Eden Hazard', 'currentTeam' => 'Chelsea', 'salary' => '6.5 million GPB', 'length' => '173');
 
 if(isset($_GET['playerName'])){
     $playerName = $_GET['playerName'];
@@ -40,71 +40,95 @@ if(isset($_GET['playerName'])){
 
 }
 if(isset($_GET['playerId'])){
-    $playerId = $_GET['playerId'];
 
-    // search database for matching ID
-    $sql = "SELECT * FROM Players WHERE id = $playerId";
-    $result = $con->query($sql);
+    if($_GET['playerId'] == "")
+    {
 
-    if ($result->num_rows > 0) {
-        // output data of each row
-        $row = $result->fetch_assoc();
 
-        $playerArray = array('id' => $row['id'], 'playerName' => $row['name'], 'currentTeam' => $row['currentTeam'], 'salary' => $row['salary'], 'length' => $row['length']);
+        $playerId = $_GET['playerId'];
+
+        // search database for matching ID
+        $sql = "SELECT * FROM Players WHERE id = $playerId";
+        $result = $con->query($sql);
+
+        if ($result->num_rows > 0) {
+            // output data of each row
+            $row = $result->fetch_assoc();
+
+            $playerArray = array('id' => $row['id'], 'playerName' => $row['name'], 'currentTeam' => $row['currentTeam'], 'salary' => $row['salary'], 'length' => $row['length']);
+
+        }
 
     }
 
-    if(isset($_GET['query'])){
-        $query = $_GET['query'];
-    }
+}
 
-
-    echo json_encode($playerArray);
+if(isset($_GET['query'])){
+    $query = $_GET['query'];
 }
 
 
 
-// switch ($query) {
-//     case 'playerSalary':
-//         contextPlayerSalaryResponse($arr);
-//         break;
-//     case 'playerLength':
-//         contextPlayerLengthResponse($arr);
-//         break;
-//     default:
-//         contextPlayerResponse($arr);
-// }
+switch ($query) {
+    case 'playerSalary':
+        contextPlayerSalaryResponse($playerArray);
+        break;
+    case 'playerLength':
+        contextPlayerLengthResponse($playerArray);
+        break;
+    case 'specificPlayerInfo':
+        specificPlayerInfoResponse($playerArray);
+        break;
+    default:
+        contextPlayerResponse($playerArray);
+}
 
 
 
-// function contextPlayerResponse($arr)
-// {
-//     $speech[0] = "That would be " . $arr['playerName'];
-//     $speech[1] = "That's ". $arr['playerName'] . "on the ball";
-//     $output = $speech[array_rand($speech)];
+function contextPlayerResponse($arr)
+{
+    $speech[0] = "That would be " . $arr['playerName'];
+    $speech[1] = "That's ". $arr['playerName'] . " on the ball";
+    $output = $speech[array_rand($speech)];
 
-//         echo json_encode(array ('output' => $output, 'playerName' => $arr['playerName']));
+    echo json_encode(array ('output' => $output, "playerInfo" => $arr));
 
-// }
+}
 
-// function contextPlayerSalaryResponse($arr)
-// {
-//     $speech[0] = $arr['playerName'] . "'s salary is " . $arr['salary'];
-//     $speech[1] = $arr['playerName'] . " makes " . $arr['salary'] . " a year";
-//     $output = $speech[array_rand($speech)];
+function contextPlayerSalaryResponse($arr)
+{
+    $speech[0] = $arr['playerName'] . "'s salary is " . $arr['salary'];
+    $speech[1] = $arr['playerName'] . " makes " . $arr['salary'] . " a year";
+    $output = $speech[array_rand($speech)];
 
-//         echo json_encode(array ('output' => $output, "playerName" => $arr['playerName']));
-
-
-// }
-
-// function contextPlayerLengthResponse($arr)
-// {
-//     $speech[0] = $arr['playerName'] . " is " . $arr['length'] . "cm tall" ;
-//     $speech[1] = "He is " . $arr['length'] . "cm tall";
-//     $output = $speech[array_rand($speech)];
-
-//         echo json_encode(array ('output' => $output, "playerName" => $arr['playerName']));
+    echo json_encode(array ('output' => $output, "playerInfo" => $arr));
 
 
-// }
+}
+
+function contextPlayerLengthResponse($arr)
+{
+    $speech[0] = $arr['playerName'] . " is " . $arr['length'] . "cm tall" ;
+    $speech[1] = "He is " . $arr['length'] . "cm tall";
+    $output = $speech[array_rand($speech)];
+
+    echo json_encode(array ('output' => $output, "playerInfo" => $arr));
+
+}
+
+function specificPlayerInfoResponse($arr)
+{
+    $speech[0] = $arr['playerName'] . " is " . $arr['length'] . " SPECIFIEK" ;
+    $speech[1] = "He is " . $arr['length'] . "SPECIFIEKSPECIFIEKSPECIFIEKSPECIFIEKSPECIFIEK";
+    $output = $speech[array_rand($speech)];
+
+    echo json_encode(array ('output' => $output, "playerInfo" => $arr));
+
+}
+
+$myfile = fopen("debug.txt", "w") or die("Unable to open file!");
+$txt = $playerArray['playerName'] . "\n";
+fwrite($myfile, $txt);
+$txt = $query . "\n";
+fwrite($myfile, $txt);
+fclose($myfile);
