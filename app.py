@@ -41,11 +41,11 @@ def processRequest(req):
         yql_url = "http://marcolemmens.com/ziggo/api.php?query=playerInfo"
         result = urlopen(yql_url).read()
         data = json.loads(result)
-        playerName = data.get('playerName')
+        output = data.get('output')
 
         return {
-            "speech": playerName,
-            "displayText": playerName,
+            "speech": output,
+            "displayText": output,
             # "data": data,
             "contextOut": [{"name":"context-player", "lifespan":1, "parameters":{"player-name":data.get('playerName')}}],
             "source": "apiai-weather-webhook-sample"
@@ -55,11 +55,11 @@ def processRequest(req):
         yql_url = "http://marcolemmens.com/ziggo/api.php?query=playerSalary&playerName=" + playerName
         result = urlopen(yql_url).read()
         data = json.loads(result)
-        salary = data.get('salary')
+        output = data.get('output')
 
         return {
-            "speech": salary,
-            "displayText": salary,
+            "speech": output,
+            "displayText": output,
             "data": playerName,
             "contextOut": [{"name":"context-player", "lifespan":1, "parameters":{"player-name":data.get('playerName')}}],
             "source": "apiai-weather-webhook-sample"
@@ -69,11 +69,11 @@ def processRequest(req):
         yql_url = "http://marcolemmens.com/ziggo/api.php?query=playerLength&playerName=" + playerName
         result = urlopen(yql_url).read()
         data = json.loads(result)
-        length = data.get('length')
+        output = data.get('output')
 
         return {
-            "speech": length,
-            "displayText": length,
+            "speech": output,
+            "displayText": output,
             "data": playerName,
             "contextOut": [{"name":"context-player", "lifespan":1, "parameters":{"player-name":data.get('playerName')}}],
             "source": "apiai-weather-webhook-sample"
