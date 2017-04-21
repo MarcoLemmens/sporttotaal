@@ -47,17 +47,11 @@ def processRequest(req):
           "messages": [
             {
             "speech": "That's " + playerName + "on the ball",
-            "displayText": "That's " + playerName + "on the ball",
-            # "data": data,
             "contextOut": [{"name":"context-player", "lifespan":1, "parameters":{"player-name":data.get('playerName')}}],
-            "source": "apiai-weather-webhook-sample"
             },
             {
             "speech": "That would be "+playerName,
-            "displayText": "That would be "+playerName,
-            # "data": data,
             "contextOut": [{"name":"context-player", "lifespan":1, "parameters":{"player-name":data.get('playerName')}}],
-            "source": "apiai-weather-webhook-sample"
             }
           ]
         }
@@ -70,18 +64,16 @@ def processRequest(req):
 
         return {
             "messages":[
+                {
                     "speech": data.get('playerName') + "'s salary is "+ salary ,
-                    "displayText": data.get('playerName') + "'s salary is "+ salary,
                     "data": playerName,
                     "contextOut": [{"name":"context-player", "lifespan":1, "parameters":{"player-name":data.get('playerName')}}],
-                    "source": "apiai-weather-webhook-sample"
-            ],
-            [
+                },
+                {
                     "speech": data.get('playerName') + "makes "+ salary + "a year",
-                    "displayText": data.get('playerName') + "makes "+ salary + "a year",
                     "data": playerName,
                     "contextOut": [{"name":"context-player", "lifespan":1, "parameters":{"player-name":data.get('playerName')}}],
-                    "source": "apiai-weather-webhook-sample"
+                }
             ]
         }
     if req.get("result").get("action") == "context-player-length":
