@@ -83,25 +83,6 @@ def processRequest(req):
             "source": "apiai-weather-webhook-sample"
         }
 
-    if req.get("result").get("action") == "specific-player":
-
-        playerName = req.get('result').get("parameters").get("soccerPlayers")
-
-
-        yql_url = "http://marcolemmens.com/ziggo/api.php?query=specificPlayerInfo+"&playerName=" + playerName"
-        result = urlopen(yql_url).read()
-        data = json.loads(result)
-        output = data.get('output')
-
-
-        return {
-            "speech": output,
-            # "data": data,
-            "contextOut": [{"name":"context-player", "lifespan":1, "parameters":{"player-id": playerId}},{"name":"context-player", "lifespan":1, "parameters":{"player-name": playerName}}],
-            "source": "apiai-weather-webhook-sample"
-        }
-
-
     else:
         return {}
 
