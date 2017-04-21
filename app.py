@@ -85,11 +85,10 @@ def processRequest(req):
 
     if req.get("result").get("action") == "specific-player":
 
-        playerName = "Memphis Depay"
-        playerId = 2
+        playerName = req.get('result').get("parameters").get("soccerPlayers")
 
 
-        yql_url = "http://marcolemmens.com/ziggo/api.php?query=specificPlayerInfo&playerId=" + playerId+"&playerName=" + playerName"
+        yql_url = "http://marcolemmens.com/ziggo/api.php?query=specificPlayerInfo+"&playerName=" + playerName"
         result = urlopen(yql_url).read()
         data = json.loads(result)
         output = data.get('output')
