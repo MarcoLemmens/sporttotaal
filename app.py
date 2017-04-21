@@ -59,11 +59,8 @@ def processRequest(req):
         result = urlopen(yql_url).read()
         data = json.loads(result)
         output = data.get('output')
-
         playerId = data.get('playerInfo').get("id")
         playerName = data.get('playerInfo').get("playerName")
-
-
         return {
             "speech": output,
             "data": playerName,
@@ -71,16 +68,18 @@ def processRequest(req):
             "source": "apiai-weather-webhook-sample"
         }
     if req.get("result").get("action") == "context-player-length":
+        playerId = req.get("result").get("contexts")[0].get("parameters").get("player-id")
         playerName = req.get("result").get("contexts")[0].get("parameters").get("player-name")
-        yql_url = "http://marcolemmens.com/ziggo/api.php?query=playerLength&playerName=" + playerName
+        yql_url = "http://marcolemmens.com/ziggo/api.php?query=playerLength&playerId=" + playerId+"&playerName=" + playerName
         result = urlopen(yql_url).read()
         data = json.loads(result)
         output = data.get('output')
-
+        playerId = data.get('playerInfo').get("id")
+        playerName = data.get('playerInfo').get("playerName")
         return {
             "speech": output,
             "data": playerName,
-            "contextOut": [{"name":"context-player", "lifespan":1, "parameters":{"player-name":playerName}}],
+            "contextOut": [{"name":"context-player", "lifespan":1, "parameters":{"player-id": playerId}},{"name":"context-player", "lifespan":1, "parameters":{"player-name": playerName}}],
             "source": "apiai-weather-webhook-sample"
         }
     else:
