@@ -47,6 +47,7 @@ def processRequest(req):
           "messages": [
             {
             "speech": "That's " + playerName + "on the ball",
+            "displayText": "That's " + playerName + "on the ball",
             "contextOut": [{"name":"context-player", "lifespan":1, "parameters":{"player-name":data.get('playerName')}}],
             },
             {
@@ -66,11 +67,13 @@ def processRequest(req):
             "messages":[
                 {
                     "speech": data.get('playerName') + "'s salary is "+ salary ,
+                    "displayText": data.get('playerName') + "'s salary is "+ salary ,
                     "data": playerName,
                     "contextOut": [{"name":"context-player", "lifespan":1, "parameters":{"player-name":data.get('playerName')}}],
                 },
                 {
                     "speech": data.get('playerName') + "makes "+ salary + "a year",
+                    "displayText": data.get('playerName') + "makes "+ salary + "a year",
                     "data": playerName,
                     "contextOut": [{"name":"context-player", "lifespan":1, "parameters":{"player-name":data.get('playerName')}}],
                 }
