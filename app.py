@@ -109,7 +109,7 @@ def processRequest(req):
 
         return {
             "speech": output,
-            "data": playerName,
+            "data": eventName,
             "contextOut": [{"name":"context-event", "lifespan":1, "parameters":{"event-name": eventName}}],
             "source": "apiai-weather-webhook-sample"
         }
