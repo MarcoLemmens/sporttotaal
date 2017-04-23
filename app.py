@@ -98,6 +98,22 @@ def processRequest(req):
             "source": "apiai-weather-webhook-sample"
         }
 
+    if req.get("result").get("action") == "last-event":
+
+        yql_url = "http://marcolemmens.com/ziggo/api.php?query=lastEvent
+        result = urlopen(yql_url).read()
+        data = json.loads(result)
+        output = data.get('output')
+
+        eventName = data.get('eventInfo').get("eventName")
+
+        return {
+            "speech": output,
+            "data": playerName,
+            "contextOut": [{"name":"context-event", "lifespan":1, "parameters":{"event-name": eventName}}],
+            "source": "apiai-weather-webhook-sample"
+        }
+
     else:
         return {}
 
